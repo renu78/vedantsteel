@@ -3,27 +3,22 @@ import React, { useState } from 'react';
 import Header from '../componets/Header';
 import Footer from '../componets/Footer';
 import Sidebar from '../componets/Sidebar';
+import { motion } from 'framer-motion';
+import toast from 'react-hot-toast';
 
 export default function Contact() {
-  const [form, setForm] = useState({
-    name: '',
-    mobile: '',
-    message: '',
-  });
-
-  const [errors, setErrors] = useState({
-    name: '',
-    mobile: '',
-    message: '',
-  });
+  const [form, setForm] = useState({ name: '', mobile: '', message: '' });
+  const [errors, setErrors] = useState({ name: '', mobile: '', message: '' });
+  const [success, setSuccess] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: '' });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSuccess('');
     const newErrors = {
       name: form.name ? '' : 'Please enter your name.',
       mobile: form.mobile ? '' : 'Please enter your mobile number.',
@@ -33,101 +28,121 @@ export default function Contact() {
 
     const hasError = Object.values(newErrors).some(err => err !== '');
     if (!hasError) {
-      console.log('Form submitted', form);
-      alert('Form submitted successfully!');
-      // Reset form
-      setForm({ name: '', mobile: '', message: '' });
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(form),
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          toast.success('Message sent successfully! We will get back to you soon.');
+          setForm({ name: '', mobile: '', message: '' });
+        } else {
+          toast.error('Something went wrong. Please try again.');
+        }
+      } catch (err) {
+        toast.error('Failed to send message.');
+        console.error(err);
+      }
     }
   };
 
   return (
     <>
       <Header />
-      <div className="flex  min-h-screen">
-        {/* Sidebar */}
+      <div className="flex min-h-screen">
         <Sidebar />
+        <main className="bg-gray-50 flex-grow p-6">
+          <div className="max-w-4xl mx-auto">
+            <motion.h2
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-4xl font-extrabold text-center text-gray-800 mb-10 mt-6"
+            >
+              Get in Touch
+            </motion.h2>
 
-      <main className="bg-gray-50 flex-grow  p-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-10 mt-10 ">Contact Us</h2>
-
-          <div className="grid md:grid-cols-2 gap-x-6 gap-y-4 bg-gray-100 p-6 rounded-xl shadow-md">
-            {/* Left: Contact Info */}
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3 ">Contact Person:</h3>
-              <p className="text-gray-700 mb-6">Amrut Sali</p>
-
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Address:</h3>
-              <p className="text-gray-700 mb-6">
-                Vedant Steel<br />
-                Nagar Manmad Road, Nagapur,<br />
-                MIDC Area, Ahilyanagar 414111
-              </p>
-
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">Call Us:</h3>
-              <p className="text-blue-700 font-bold text-lg mb-4">+918983486863</p>
-
-             
-            </div>
-
-            {/* Right: Contact Form */}
-            <form onSubmit={handleSubmit} className="space-y-3 ">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="grid md:grid-cols-2 gap-x-8 gap-y-6 bg-white p-8 rounded-xl shadow-lg"
+            >
               <div>
-                <label className="block text-black font-medium mb-1">Your Mobile Number</label>
-                <input
-                  type="tel"
-                  name="mobile"
-                  value={form.mobile}
-                  onChange={handleChange}
-                  placeholder="+91 Enter your number"
-                  className={`text-black w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    errors.mobile ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                />
-                {errors.mobile && <p className="text-red-500 text-sm mt-1">{errors.mobile}</p>}
+                <h3 className="text-2xl font-semibold text-blue-700 mb-2">Contact Person</h3>
+                <p className="text-gray-700 mb-4">Amrut Sali</p>
+                <h3 className="text-2xl font-semibold text-blue-700 mb-2">Address</h3>
+                <p className="text-gray-700 mb-4">
+                  Vedant Steel<br />
+                  Nagar Manmad Road, Nagapur,<br />
+                  MIDC Area, Ahilyanagar 414111
+                </p>
+                <h3 className="text-2xl font-semibold text-blue-700 mb-2">Call Us</h3>
+                <p className="text-blue-800 font-bold text-lg">+91 89834 86863</p>
               </div>
 
-              <div>
-                <label className="block text-gray-700 font-medium mb-1">Your Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="Enter your name"
-                  className={`text-black w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    errors.name ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                />
-                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-              </div>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="block text-gray-700 font-medium mb-1">Your Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    className={`text-black w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      errors.name ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                    placeholder="Enter your name"
+                  />
+                  {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+                </div>
 
-              <div>
-                <label className="block text-gray-700 font-medium mb-1">Describe your requirement</label>
-                <textarea
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  placeholder="Describe your requirement in detail"
-                  className={`text-black w-full px-4 py-2 border rounded-md h-28 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    errors.message ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                />
-                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
-              </div>
+                <div>
+                  <label className="block text-gray-700 font-medium mb-1">Mobile Number</label>
+                  <input
+                    type="tel"
+                    name="mobile"
+                    value={form.mobile}
+                    onChange={handleChange}
+                    className={`text-black w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      errors.mobile ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                    placeholder="+91 12345 67890"
+                  />
+                  {errors.mobile && <p className="text-red-500 text-sm">{errors.mobile}</p>}
+                </div>
 
-              <button
-                type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-semibold"
-              >
-                Contact Now
-              </button>
-            </form>
+                <div>
+                  <label className="block text-gray-700 font-medium mb-1">Your Message</label>
+                  <textarea
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    rows={5}
+                    className={`text-black w-full px-4 py-2 border rounded resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      errors.message ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                    placeholder="Describe your requirement"
+                  />
+                  {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
+                </div>
+
+                <button
+                  type="submit"
+                  className="bg-blue-600 hover:bg-blue-700 transition text-white px-6 py-2 rounded-md font-semibold"
+                >
+                  Contact Now
+                </button>
+
+                {success && <p className="text-green-600 mt-2">{success}</p>}
+              </form>
+            </motion.div>
           </div>
-        </div>
-      </main>
+        </main>
       </div>
-      {/* Footer */}
       <Footer />
     </>
   );

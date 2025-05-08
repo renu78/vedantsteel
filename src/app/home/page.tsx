@@ -1,176 +1,167 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Header from '../componets/Header';
 import Footer from '../componets/Footer';
 import Sidebar from '../componets/Sidebar';
+import InterestModal from '../componets/InterestModel';
+import { motion } from 'framer-motion';
 
 const Home = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <>
-    <Header />
-    <div className="flex">
-      
-      <Sidebar/>
-   
-    <div className=" bg-white mx-auto  flex-grow ">
-    <section className="bg-white py-12 px-4 md:px-16">
-  <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Our Products</h2>
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-    {/* Main Product - Large Card */}
-    <div className="md:col-span-2 relative group overflow-hidden rounded-xl shadow-lg p-5 bg-gray-500">
-      <img
-        src="images/Agriculture goods.jpeg"
-        alt="Agriculture goods"
-        className="w-full h-[400px] object-cover transition-transform duration-500 group-hover:scale-105"
-      />
-      <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-center text-white py-3">
-        <div className="text-lg font-semibold">Agriculture Goods</div>
-        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-2">
-          <button className="bg-yellow-400 text-black py-1 px-4 rounded hover:bg-yellow-500 transition-colors">
-            Get Quote
-          </button>
-        </div>
-      </div>
-    </div>
+      <Header />
+      <div className="flex bg-gray-50">
+        <Sidebar />
+        <div className="flex-grow px-4 md:px-10 py-6">
+          {/* Products Section */}
+          <section className="py-10">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-3xl font-bold text-center text-gray-800 mb-10"
+            >
+              Our Products
+            </motion.h2>
 
-    {/* Small Product Cards */}
-    <div className="grid grid-cols-2 gap-4">
-      {[
-        {
-          img: 'images/HRPlate.jpeg',
-          label: 'H R Plate',
-        },
-        {
-          img: '/images/AngleChannel.jpeg',
-          label: 'Angle Channel',
-        },
-        {
-          img: '/images/M s Flat.jpeg',
-          label: 'M S Flat',
-        },
-        {
-          img: '/images/channel10mm.jpg',
-          label: '10mm Mild Steel Channel',
-        },
-      ].map((item, idx) => (
-        <div key={idx} className="relative group overflow-hidden rounded-xl shadow-md p-2 bg-gray-500">
-          <img
-            src={item.img}
-            alt={item.label}
-            className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 text-white text-center py-2">
-            <div className="text-sm font-medium">{item.label}</div>
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-1">
-              <button className="bg-yellow-400 text-black text-sm py-1 px-3 rounded hover:bg-yellow-500 transition-colors">
-                Get Quote
-              </button>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Main Product Card */}
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="md:col-span-2 relative group overflow-hidden rounded-xl shadow-xl bg-white"
+              >
+                <img
+                  src="images/Agriculture goods.jpeg"
+                  alt="Agriculture goods"
+                  className="w-full h-[400px] object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute bottom-0 inset-x-0 bg-black bg-opacity-60 text-white text-center p-4">
+                  <div className="text-lg font-semibold">Agriculture Goods</div>
+                  <motion.button
+                    onClick={toggleModal}
+                    whileHover={{ scale: 1.05 }}
+                    className="mt-3 bg-yellow-400 text-black font-medium py-1 px-5 rounded hover:bg-yellow-500 transition"
+                  >
+                    Get Quote
+                  </motion.button>
+                </div>
+              </motion.div>
+
+              {/* Small Product Cards */}
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { img: 'images/HRPlate.jpeg', label: 'H R Plate' },
+                  { img: '/images/AngleChannel.jpeg', label: 'Angle Channel' },
+                  { img: '/images/M s Flat.jpeg', label: 'M S Flat' },
+                  { img: '/images/Ms roundbar.png', label: 'Ms Round Bar' },
+                ].map((item, idx) => (
+                  <motion.div
+                    key={idx}
+                    whileHover={{ scale: 1.03 }}
+                    className="relative group overflow-hidden rounded-xl shadow-md bg-white"
+                  >
+                    <img
+                      src={item.img}
+                      alt={item.label}
+                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute bottom-0 inset-x-0 bg-black bg-opacity-60 text-white text-center py-2">
+                      <div className="text-sm font-medium">{item.label}</div>
+                      <button
+                        onClick={toggleModal}
+                        className="mt-2 bg-yellow-400 text-black text-sm py-1 px-3 rounded hover:bg-yellow-500 transition"
+                      >
+                        Get Quote
+                      </button>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
+            {isModalOpen && <InterestModal onClose={toggleModal} />}
+          </section>
 
+          {/* About Us */}
+          <section className="py-12">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-3xl font-bold text-gray-800 mb-6"
+            >
+              About Us
+            </motion.h2>
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              We <strong>"Vedant steel"</strong> are an <strong>engineering company</strong> and trader of 
+              <strong> Mild Steel Angle, Mild Steel Beam, Mild Steel Flat Bar, Round Bar, Square Bar</strong>, etc.
+            </p>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-gray-700">
+              {[
+                ['fas fa-industry', 'Nature of Business', 'Manufacturer, Engineering Workshop'],
+                ['fas fa-users', 'Total Employees', '51 to 100 People'],
+                ['fas fa-calendar-alt', 'GST Registration Date', '01-07-2017'],
+                ['fas fa-balance-scale', 'Legal Status of Firm', 'Proprietory'],
+                ['fas fa-chart-line', 'Annual Turnover', '50-100cr'],
+                ['fas fa-file-invoice', 'GST No.', '27AOQPB9220H1ZV'],
+                ['fas fa-id-badge', 'UDYAM No.', 'UDYAM-MH-01-0086551'],
+              ].map(([icon, title, desc], idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="flex items-start gap-4"
+                >
+                  <i className={`${icon} text-2xl text-blue-600`}></i>
+                  <div>
+                    <p className="font-semibold">{title}</p>
+                    <p>{desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
 
-
-
-<section className="bg-white py-12 px-4 md:px-16">
-  <h2 className="text-3xl font-bold text-gray-800 mb-6">About Us</h2>
-  <p className="text-lg text-gray-700 mb-6">
-    We <strong>"Vedant steel."</strong> are a <strong>Engineering company</strong> of <strong> Agri Steel And trader of Mild Steel Angle, Mild Steel Beam, Mild Steel Flat Bar, Mild Steel Round Bar, Mild Steel Square Bar</strong>,etc.
-</p>
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-gray-700">
-    <div className="flex items-start gap-4">
-      <i className="fas fa-industry text-2xl text-blue-600"></i>
-      <div>
-        <p className="font-semibold">Nature of Business</p>
-        <p>Manufacturer, Engineering Workshop </p>
-      </div>
-    </div>
-
-    <div className="flex items-start gap-4">
-      <i className="fas fa-users text-2xl text-blue-600"></i>
-      <div>
-        <p className="font-semibold">Total Number of Employees</p>
-        <p>51 to 100 People</p>
-      </div>
-    </div>
-
-    <div className="flex items-start gap-4">
-      <i className="fas fa-calendar-alt text-2xl text-blue-600"></i>
-      <div>
-        <p className="font-semibold">GST Registration Date</p>
-        <p>01-07-2017</p>
-      </div>
-    </div>
-
-    <div className="flex items-start gap-4">
-      <i className="fas fa-balance-scale text-2xl text-blue-600"></i>
-      <div>
-        <p className="font-semibold">Legal Status of Firm</p>
-        <p>Proprietory</p>
-      </div>
-    </div>
-
-    <div className="flex items-start gap-4">
-      <i className="fas fa-chart-line text-2xl text-blue-600"></i>
-      <div>
-        <p className="font-semibold">Annual Turnover</p>
-        <p>50-100cr</p>
-      </div>
-    </div>
-
-   
-
-    <div className="flex items-start gap-4">
-      <i className="fas fa-file-invoice text-2xl text-blue-600"></i>
-      <div>
-        <p className="font-semibold">GST No.</p>
-        <p>27AOQPB9220H1ZV</p>
-      </div>
-    </div>
-
-    <div className="flex items-start gap-4">
-      <i className="fas fa-id-badge text-2xl text-blue-600"></i>
-      <div>
-        <p className="font-semibold">UDYAM No.</p>
-        <p>UDYAM-MH-01-0086551</p>
-      </div>
-    </div>
-  </div>
-
-  <div className="mt-10 text-center">
+            <div className="mt-10 text-center">
+  <a href="contactus" className="inline-block">
     <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded transition">
       Contact Us &gt;
     </button>
-  </div>
-</section>
-<section className="bg-gray-800 text-white py-12 px-4">
-  <div className="max-w-2xl mx-auto text-center">
-    <h2 className="text-3xl font-bold mb-6">Contact Us</h2>
-    <form className="bg-white p-6 rounded shadow-md text-gray">
-      <textarea
-        className="w-full border border-gray-300 rounded p-4 mb-4 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-        rows={5}
-        placeholder="Describe your requirement in detail"
-      />
-      <button
-        type="submit"
-        className="bg-blue-600 text-white font-semibold px-6 py-2 rounded hover:bg-blue-700 transition"
-      >
-        Submit
-      </button>
-    </form>
+  </a>
+</div>
+
+          </section>
+
+          {/* Contact Form */}
+          <section  className="bg-gray-800 text-white ">
+  <div className="w-full mx-auto text-center">
+    {/* Embedded Google Map */}
+    <div className="rounded-lg overflow-hidden shadow-lg border-4 border-white">
+      <iframe
+        title="Vedant Steel Location"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.1524182776598!2d74.70958257373859!3d19.14480434981181!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdcbbf28d222e1b%3A0x507161046ba4847!2sVedant%20Steel!5e0!3m2!1sen!2sin!4v1746723466449!5m2!1sen!2sin"
+        width="100%"
+        height="400"
+        style={{ border: 0 }}
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
   </div>
 </section>
 
-    </div>
-    </div>
-    <Footer/>
+        </div>
+      </div>
+      <Footer />
     </>
   );
 };
