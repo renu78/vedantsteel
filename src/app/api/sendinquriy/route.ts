@@ -1,32 +1,35 @@
-// app/api/send-inquiry/route.ts (for Next.js 13+ with app directory)
+// app/api/sendinquriy/route.ts
 
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
 export async function POST(req: Request) {
-  const { name, email, company, website, product,mobileNo } = await req.json();
+  const { name, email, company, website, productTitle, mobileNo } = await req.json();
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.EMAIL_USER,      // your Gmail address
-      pass: process.env.EMAIL_PASS,      // App password (not your Gmail password)
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
   const mailOptions = {
-  
-    to: 'amusali989@gmail.com', // your client's email
-    subject: `New Product Inquiry: `,
+    from: `"Inquiry Bot" <${process.env.EMAIL_USER}>`,
+    to: 'amusali989@gmail.com',
+    subject: `New Product Inquiry: ${productTitle}`,
     text: `
-      A new inquiry has been submitted for the product:${product.title}
+A new inquiry has been submitted for the product:
 
-      Name: ${name}
-      Email: ${email}
-      Company: ${company}
-      Website: ${website}
-      Mobile No: ${mobileNo}
-      
+📦 Product: ${productTitle}
+
+👤 Name: ${name}
+📧 Email: ${email}
+📱 Mobile No: ${mobileNo}
+🏢 Company: ${company}
+🌐 Website: ${website || 'N/A'}
+
+Please follow up with the lead promptly.
     `,
   };
 

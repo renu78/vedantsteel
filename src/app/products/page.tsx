@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Header from '../componets/Header';
 import Footer from '../componets/Footer';
-import Sidebar from '../componets/Sidebar';
 import InterestModal from '../componets/InterestModel';
 import ProductCard from '../componets/CourseCard';
 
@@ -29,30 +28,32 @@ export default function ProductPage() {
 
   return (
     <>
-    <Header/>
-    <div className="flex">
-      
-      <Sidebar/>
+      <Header />
 
-    <div className="p-8 flex-grow mx-auto bg-white">
-      {/* Product Title and Price */}
-      
-      {/* Product Features */}
-      <main className="min-h-screen p-6 bg-gray-50">
-      <h1 className="text-2xl font-bold mb-6 text-black">Our Products</h1>
-     
-      <ProductCard />
-      
-    </main>
-     
-      {/* Interest Button */}
-    
+      <div className="flex bg-gradient-to-br from-gray-100 to-white min-h-screen">
+        <main className="flex-grow p-6 lg:p-10 animate-fade-in">
+          {/* Section Heading */}
+          <section className="mb-8 transition-opacity duration-500 ease-in  animate-slide-up animate-on-visible">
+            <h1 className="text-4xl font-extrabold text-blue-900 mb-2">
+              Explore Our Steel Products
+            </h1>
+            <p className="text-lg text-gray-700">
+              Find premium-grade materials trusted across infrastructure, construction, and manufacturing sectors.
+            </p>
+          </section>
 
-      {showModal && <InterestModal onClose={() => setShowModal(false)} product={product} />}
+          {/* Product Grid */}
+          <section className="animate-fade-in-slow animate-on-visible">
+            <ProductCard />
+          </section>
+        </main>
+      </div>
 
-    </div>
-    </div>
-    <Footer/>
+      {showModal && (
+        <InterestModal onClose={() => setShowModal(false)} product={product} />
+      )}
+
+      <Footer />
     </>
   );
 }

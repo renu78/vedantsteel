@@ -1,28 +1,49 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
+
+const menu = [
+  { name: 'Home', path: '/home' },
+  { name: 'About Us', path: '/aboutus' },
+  { name: 'Contact Us', path: '/contactus' },
+  { name: 'Our Products', path: '/products' },
+];
 
 const Sidebar = () => {
-  const menu = [
-    { name: 'Home', path: '/home' },
-    { name: 'About Us', path: '/aboutus' },
-    { name: 'Contact Us', path: '/contactus' },
-    { name: 'Our Products', path: '/products' },
-  ];
+  const pathname = usePathname();
 
   return (
-    <aside className="w-80 bg-white shadow-lg px-6 py-8 h-100%  border-r overflow-auto">
-
+    <motion.aside
+      initial={{ x: -100, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+      className="w-64 h-screen  bg-white shadow-xl px-6 py-8 border-r border-gray-200"
+    >
+     
       <nav>
         <ul className="space-y-4">
-          {menu.map((item) => (
-            <li key={item.name}>
-              <Link href={item.path} className="text-lg font-semibold text-gray-800 hover:text-blue-600">
-                {item.name}
-              </Link>
-            </li>
-          ))}
+          {menu.map((item) => {
+            const isActive = pathname === item.path;
+            return (
+              <li key={item.name}>
+                <Link
+                  href={item.path}
+                  className={`block px-4 py-2 rounded-md transition-all duration-200 ${
+                    isActive
+                      ? 'bg-[#F84D26] text-white shadow-md'
+                      : 'text-gray-800 hover:bg-gray-100 hover:text-[#F84D26]'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </nav>
-    </aside>
+    </motion.aside>
   );
 };
 

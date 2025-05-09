@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Header from '../componets/Header';
 import Footer from '../componets/Footer';
-import Sidebar from '../componets/Sidebar';
 import InterestModal from '../componets/InterestModel';
 import { motion } from 'framer-motion';
 
@@ -17,8 +16,8 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div className="flex bg-gray-50">
-        <Sidebar />
+      <div className="flex flex-col md:flex-row bg-gray-50">
+        {/* Main Content Area */}
         <div className="flex-grow px-4 md:px-10 py-6">
           {/* Products Section */}
           <section className="py-10">
@@ -34,7 +33,7 @@ const Home = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Main Product Card */}
               <motion.div
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
                 className="md:col-span-2 relative group overflow-hidden rounded-xl shadow-xl bg-white"
               >
@@ -57,7 +56,7 @@ const Home = () => {
 
               {/* Small Product Cards */}
               <div className="grid grid-cols-2 gap-4">
-                {[
+                {[ 
                   { img: 'images/HRPlate.jpeg', label: 'H R Plate' },
                   { img: '/images/AngleChannel.jpeg', label: 'Angle Channel' },
                   { img: '/images/M s Flat.jpeg', label: 'M S Flat' },
@@ -86,6 +85,7 @@ const Home = () => {
                 ))}
               </div>
             </div>
+
             {isModalOpen && <InterestModal onClose={toggleModal} />}
           </section>
 
@@ -100,12 +100,12 @@ const Home = () => {
               About Us
             </motion.h2>
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              We <strong>"Vedant steel"</strong> are an <strong>engineering company</strong> and trader of 
-              <strong> Mild Steel Angle, Mild Steel Beam, Mild Steel Flat Bar, Round Bar, Square Bar</strong>, etc.
+              We <strong>"Vedant Steel"</strong> are an <strong>engineering company</strong> and trader of{' '}
+              <strong>Mild Steel Angle, Mild Steel Beam, Mild Steel Flat Bar, Round Bar, Square Bar</strong>, etc.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-gray-700">
-              {[
+              {[ 
                 ['fas fa-industry', 'Nature of Business', 'Manufacturer, Engineering Workshop'],
                 ['fas fa-users', 'Total Employees', '51 to 100 People'],
                 ['fas fa-calendar-alt', 'GST Registration Date', '01-07-2017'],
@@ -131,34 +131,31 @@ const Home = () => {
             </div>
 
             <div className="mt-10 text-center">
-  <a href="contactus" className="inline-block">
-    <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded transition">
-      Contact Us &gt;
-    </button>
-  </a>
-</div>
-
+              <a href="contactus" className="inline-block">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded transition">
+                  Contact Us &gt;
+                </button>
+              </a>
+            </div>
           </section>
 
-          {/* Contact Form */}
-          <section  className="bg-gray-800 text-white ">
-  <div className="w-full mx-auto text-center">
-    {/* Embedded Google Map */}
-    <div className="rounded-lg overflow-hidden shadow-lg border-4 border-white">
-      <iframe
-        title="Vedant Steel Location"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.1524182776598!2d74.70958257373859!3d19.14480434981181!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdcbbf28d222e1b%3A0x507161046ba4847!2sVedant%20Steel!5e0!3m2!1sen!2sin!4v1746723466449!5m2!1sen!2sin"
-        width="100%"
-        height="400"
-        style={{ border: 0 }}
-        allowFullScreen
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-      ></iframe>
-    </div>
-  </div>
-</section>
-
+          {/* Contact Form / Map */}
+          <section className="bg-gray-800 text-white py-10">
+            <div className="w-full mx-auto text-center">
+              <div className="rounded-lg overflow-hidden shadow-lg border-4 border-white">
+                <iframe
+                  title="Vedant Steel Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.1524182776598!2d74.70958257373859!3d19.14480434981181!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdcbbf28d222e1b%3A0x507161046ba4847!2sVedant%20Steel!5e0!3m2!1sen!2sin!4v1746723466449!5m2!1sen!2sin"
+                  width="100%"
+                  height="400"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
       <Footer />

@@ -28,11 +28,11 @@ export default function Footer() {
         <div>
           <h2 className="text-lg font-bold mb-4">Company Profile</h2>
           <ul className="space-y-2 text-sm">
-            <li><a href="#" className="hover:underline">Home</a></li>
-            <li><a href="#" className="hover:underline">About Us</a></li>
-            <li><a href="#" className="hover:underline">Our Products</a></li>
-            <li><a href="#" className="hover:underline">Contact Us</a></li>
-            <li><a href="#" className="hover:underline">Sitemap</a></li>
+            <li><a href="/home" className="hover:underline">Home</a></li>
+            <li><a href="/aboutus" className="hover:underline">About Us</a></li>
+            <li><a href="/products" className="hover:underline">Our Products</a></li>
+            <li><a href="/contactus" className="hover:underline">Contact Us</a></li>
+            
           </ul>
         </div>
 
@@ -40,10 +40,11 @@ export default function Footer() {
         <div>
           <h2 className="text-lg font-bold mb-4">Products & Services</h2>
           <ul className="space-y-2 text-sm">
-            <li>Agriculture goods</li>
-            <li>H R plate</li>
-            <li>Angle channel</li>
-            <li>Leaser Cutting</li>
+            <li><a href="/products" className="hover:underline">Agriculture goods</a></li>
+            <li><a href="/products" className="hover:underline">H R plate</a></li>
+            <li><a href="/products" className="hover:underline">Ms Bar</a></li>
+            <li><a href="/products" className="hover:underline">Ms Channel</a></li>
+            
           </ul>
         </div>
 
@@ -51,10 +52,9 @@ export default function Footer() {
         <div>
           <h2 className="text-lg font-bold mb-4 invisible md:visible">.</h2>
           <ul className="space-y-2 text-sm mt-4 md:mt-0">
-            <li>Ms Bar</li>
-            <li>Ms Channel</li>
-            <li>Ms Angle</li>
-            <li>Mild Steel Flats</li>
+           
+            <li><a href="/products" className="hover:underline">Ms Angle</a></li>
+            <li><a href="/products" className="hover:underline">Mild Steel Flats</a></li>
             
           </ul>
         </div>

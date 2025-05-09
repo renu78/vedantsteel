@@ -1,9 +1,16 @@
+// components/InterestModal.tsx
+
 'use client';
 
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-export default function InterestModal({ onClose }: { onClose: () => void }) {
+interface InterestModalProps {
+  onClose: () => void;
+  productTitle: string;
+}
+
+export default function InterestModal({ onClose, productTitle }: InterestModalProps) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,20 +25,19 @@ export default function InterestModal({ onClose }: { onClose: () => void }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     const toastId = toast.loading('Sending inquiry...');
 
     try {
       const res = await fetch('/api/sendinquriy', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, product: '{product}' }),
+        body: JSON.stringify({ ...formData, productTitle }),
       });
 
       const data = await res.json();
 
       if (data.success) {
-        toast.success('Thank You For Showing Interest ,We Will Contact You Soon!', { id: toastId });
+        toast.success('Thank you for your inquiry!', { id: toastId });
         onClose();
       } else {
         toast.error('Failed to send inquiry.', { id: toastId });
@@ -42,7 +48,7 @@ export default function InterestModal({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-none p-4 transition-opacity animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-lg relative">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold text-gray-800">
