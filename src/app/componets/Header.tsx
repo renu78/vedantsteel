@@ -17,13 +17,11 @@ const menu = [
 ];
 
 const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathname = usePathname();
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
+ 
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -121,8 +119,7 @@ const Header = () => {
         </motion.aside>
       )}
 
-      {/* Display Modal */}
-      {isModalOpen && <InterestModal onClose={toggleModal} />}
+     
     </header>
   );
 };

@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 interface InterestModalProps {
   onClose: () => void;
-  productTitle: string;
+  productTitle?: string;
 }
 
 export default function InterestModal({ onClose, productTitle }: InterestModalProps) {
