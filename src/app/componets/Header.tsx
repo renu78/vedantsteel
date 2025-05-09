@@ -7,7 +7,7 @@ import { CiCircleCheck, CiLocationOn } from 'react-icons/ci';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import InterestModal from '../componets/InterestModel';
+
 
 const menu = [
   { name: 'Home', path: '/home' },

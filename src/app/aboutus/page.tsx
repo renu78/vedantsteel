@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Factsheet from '../componets/FaceSheet';
 import Header from '../componets/Header';
 import Footer from '../componets/Footer';
