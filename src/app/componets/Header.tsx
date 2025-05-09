@@ -45,7 +45,7 @@ const Header = () => {
 
           {/* Company Info */}
           <div>
-            <h2 className="text-2xl font-semibold text-black">Vedant Steel Pvt Ltd</h2>
+            <h2 className="text-2xl font-semibold text-black">Vedant Steel </h2>
 
             <div className="flex items-center text-sm text-black mt-2">
               <CiLocationOn className="text-blue-800 mr-2 text-xl" />

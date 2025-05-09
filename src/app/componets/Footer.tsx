@@ -7,7 +7,7 @@ export default function Footer() {
         
         {/* Company Info */}
         <div>
-          <h2 className="text-lg font-bold mb-2">Vedant Steel Pvt Ltd</h2>
+          <h2 className="text-lg font-bold mb-2">Vedant Steel </h2>
           <div className="flex items-start mb-2">
             <FaUser className="mt-1 mr-2 text-blue-600" />
             <p><strong>Contact Person:</strong><br /> Amrut Sali</p>
