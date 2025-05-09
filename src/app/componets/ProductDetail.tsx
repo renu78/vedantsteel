@@ -48,7 +48,7 @@ export default function ProductDetailModal({
                     ))
                   : Object.entries(product.features).map(([key, value], i) => (
                       <li key={i}>
-                        <strong>{key}:</strong> {value}
+                        <strong>{key}:</strong> {String(value)}
                       </li>
                     ))}
               </ul>
