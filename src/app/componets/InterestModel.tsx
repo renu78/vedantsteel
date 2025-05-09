@@ -42,7 +42,7 @@ export default function InterestModal({ onClose, productTitle }: InterestModalPr
       } else {
         toast.error('Failed to send inquiry.', { id: toastId });
       }
-    } catch (err) {
+    } catch (error) {
       toast.error('Something went wrong.', { id: toastId });
     }
   };

@@ -3,14 +3,14 @@
 import { useState } from 'react';
 import Header from '../componets/Header';
 import Footer from '../componets/Footer';
-import InterestModal from '../componets/InterestModel';
+
 import ProductCard from '../componets/CourseCard';
-import ProductDetailModal from '../componets/ProductDetail';
+
 
 
 
 export default function ProductPage() {
-  const [showModal, setShowModal] = useState(false);
+
 
   return (
     <>
