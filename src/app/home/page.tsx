@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Header from '../componets/Header';
 import Footer from '../componets/Footer';
-import Image from 'next/image';
+
 import InterestModal from '../componets/InterestModel';
 import { motion } from 'framer-motion';
 
@@ -38,8 +38,8 @@ const Home = () => {
                 whileTap={{ scale: 0.98 }}
                 className="md:col-span-2 relative group overflow-hidden rounded-xl shadow-xl bg-white"
               >
-                <Image
-                  src="images/Agriculture goods.jpeg"
+                <img
+                                src="images/Agriculture goods.jpeg"
                   alt="Agriculture goods"
                   className="w-full h-[400px] object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -68,7 +68,7 @@ const Home = () => {
                     whileHover={{ scale: 1.03 }}
                     className="relative group overflow-hidden rounded-xl shadow-md bg-white"
                   >
-                    <Image
+                    <img
                       src={item.img}
                       alt={item.label}
                       className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"

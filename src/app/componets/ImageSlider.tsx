@@ -2,7 +2,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+
 
 import 'keen-slider/keen-slider.min.css';
 
@@ -22,7 +22,7 @@ export default function ImageSlider() {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {slides.map((slide, index) => (
         <div key={index} className="flex flex-col items-center shadow-lg rounded-lg overflow-hidden">
-          <Image
+          <img
             src={slide.image}
             alt={slide.title}
             className="w-full h-48 object-cover"
