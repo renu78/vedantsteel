@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Star } from 'lucide-react';
 import ProductDetailModal from '../componets/ProductDetail';
 import InterestModal from '../componets/InterestModel';
 
