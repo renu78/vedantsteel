@@ -5,23 +5,9 @@ import Header from '../componets/Header';
 import Footer from '../componets/Footer';
 import InterestModal from '../componets/InterestModel';
 import ProductCard from '../componets/CourseCard';
+import ProductDetailModal from '../componets/ProductDetail';
 
-const product = {
-  title: '10mm Mild Steel Channel',
-  price: '₹53,000 / Tonne',
-  images: [
-    '/images/channel1.jpg',
-    '/images/channel2.jpg',
-    '/images/channel3.jpg',
-  ],
-  features: {
-    length: '6 Meter',
-    material: 'Mild Steel',
-    brand: 'G D Metsteel',
-    size: '70x35 to 200x75',
-    surface: 'Polished',
-  },
-};
+
 
 export default function ProductPage() {
   const [showModal, setShowModal] = useState(false);
@@ -48,10 +34,6 @@ export default function ProductPage() {
           </section>
         </main>
       </div>
-
-      {showModal && (
-        <InterestModal onClose={() => setShowModal(false)} product={product} />
-      )}
 
       <Footer />
     </>
